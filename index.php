@@ -6,14 +6,25 @@ if(isset($_POST['submit'])){
     $password = $_POST['password'];
     $mobile = $_POST['mobile'];
 
-    $sql = "INSERT INTO crud_operation (name, email, password, mobile) VALUES ('$name', '$email', '$password', '$mobile')";
+    $password_hash = password_hash($password, PASSWORD_DEFAULT); 
+
+
+
+    $sql = "SELECT * FROM crud_operation WHERE name='$name' OR email='$email'";
+    $sqlresult = mysqli_query($connect,$sql);
+    $number = mysqli_num_rows($sqlresult);
+    if($number > 0){
+        echo "<script>alert('Username and/or email already exist. Please choose different values.')</script>";
+    } else {
+
+    $sql = "INSERT INTO crud_operation (name,email,password,mobile) VALUES ('$name', '$email', '$password_hash', '$mobile')";
     $result = mysqli_query($connect, $sql);
     if($result){
-        echo "Data inserted successfully";
+        echo "<script>alert('Data inserted successfully')</script>";
     } else {
         die(mysqli_error($connect));
     }
-    }
+    }}
 
 ?>
 
@@ -63,33 +74,3 @@ if(isset($_POST['submit'])){
     
 </body>
 </html>
-
-
-<!-- Connecting to database using pdo statement from WA4E course by Dr Chuck Severance -->
-
-    <?php
-    /*
-echo "<pre>\n"; 
-require_once('pdo.php');
-$stmt = $pdo->query("SELECT * FROM crud_operation");
-echo '<table border="1">'."\n";
-echo "<tr><th>Name</th>";
-   echo "<th>Email</th>";
-   echo "<th>Password</th>";
-   echo "<th>Mobile</th></tr>";
-while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
-    echo "<tr><td>";
-    echo($row['name']);
-    echo("</td><td>");
-    echo($row['email']);
-    echo("</td><td>");
-    echo($row['password']);
-    echo("</td><>");
-    echo($row['mobile']);
-    echo("</td></tr>\n");
-}
-echo "</table>\n";
-echo "</pre\n";
-*/
-    ?>
-    
