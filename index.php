@@ -14,13 +14,14 @@ if(isset($_POST['submit'])){
     $sqlresult = mysqli_query($connect,$sql);
     $number = mysqli_num_rows($sqlresult);
     if($number > 0){
-        echo "<script>alert('Username and/or email already exist. Please choose different values.')</script>";
+        echo "<scrip;>alert('Username and/or email already exist. Please choose different values.')</script>";
     } else {
 
     $sql = "INSERT INTO crud_operation (name,email,password,mobile) VALUES ('$name', '$email', '$password_hash', '$mobile')";
     $result = mysqli_query($connect, $sql);
     if($result){
-        echo "<script>alert('Data inserted successfully')</script>";
+        echo "<script>alert('Data inserted successfully.')</script>";
+        echo "<script>window.open('display.php', '_self')</script>";
     } else {
         die(mysqli_error($connect));
     }
