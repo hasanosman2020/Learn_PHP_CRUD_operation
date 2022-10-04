@@ -1,3 +1,8 @@
+<?php
+include ('connect.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,17 +28,35 @@
             </tr>
 </thead>
 <tbody class="vertical-align-middle text-center table-group-divider" style="border-top-color: black">
-            <tr>
-                <td>001</td>
-                <td>Hasan</td>
-                <td>hasan@gmail.com</td>
-                <td>07847564764</td>
+<?php
+$select_query = "SELECT * FROM crud_operation";
+$result = mysqli_query($connect,$select_query);
+$i=1;
+if ($result){
+    while ($row = mysqli_fetch_assoc($result)){
+        $id = $row['id'];
+        $name = $row['name'];
+        $email = $row['email'];
+        $mobile = $row['mobile'];
+        echo "<tr>
+                <td>$i</td>
+                <td>$name</td>
+                <td>$email</td>
+                <td>$mobile</td>
                 <td>
-                    <button class="btn btn-dark my-4 txt-decoration-none" type="button"><a href="#" class="text-light text-decoration-none">Update</a></button>
-                    <button class="btn btn-danger my-4 txt-decoration-none" type="button"><a href="#" class="text-light text-decoration-none">Delete</a></button>
+                    <button class='btn btn-dark my-4 txt-decoration-none' type='button'><a href='#' class='text-light text-decoration-none'>Update</a></button>
+                    <button class='btn btn-danger my-4 txt-decoration-none' type='button'><a href='#' class='text-light text-decoration-none'>Delete</a></button>
                 </td>
 
-            </tr>
+            </tr>";
+            $i++;
+    }
+    
+} else {
+    die (mysqli_error($connect));
+}
+?>
+            
             </tbody>
         
     </table>
