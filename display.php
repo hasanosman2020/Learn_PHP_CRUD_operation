@@ -44,7 +44,7 @@ if ($result){
                 <td>$email</td>
                 <td>$mobile</td>
                 <td>
-                    <button class='btn btn-dark my-4 txt-decoration-none' type='button'><a href='#' class='text-light text-decoration-none'>Update</a></button>
+                    <button class='btn btn-dark my-4 txt-decoration-none' type='button'><a href='update.php?update_id=$id' class='text-light text-decoration-none'>Update</a></button>
                     <button class='btn btn-danger my-4 txt-decoration-none' type='button'><a href='delete.php?delete_id=$id' class='text-light text-decoration-none'>Delete</a></button>
                 </td>
 
