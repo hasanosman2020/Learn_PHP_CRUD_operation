@@ -1,3 +1,37 @@
+<?php
+include ('connect.php');
+
+if (isset($_GET['update_id'])){
+    $uid = $_GET['update_id'];
+    //echo $uid;
+//selecting data from database so that we can display in input fields
+$select_query="SELECT * FROM crud_operation WHERE id='$uid'";
+$result_query =  mysqli_query($connect,$select_query);
+$row=mysqli_fetch_assoc($result_query);
+$user_display = $row['name'];
+$email_display=$row['email'];
+$mobile_display=$row['mobile'];
+
+
+    if(isset($_POST['update'])){
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $mobile = $_POST['mobile'];
+//updating new data inside database table
+        $update_query = "UPDATE crud_operation SET name='$name', email='$email',mobile='$mobile' WHERE id='$uid'";
+        $result_query = mysqli_query($connect,$update_query);
+        if($result_query){
+            echo "<script>alert('Record updated successfully')</script>";
+            echo "<script>window.open('display.php','_self')</script>";
+        } else {
+            die(mysqli_error($connect));
+        }
+    }}
+
+
+
+?>
+
 <html>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,17 +47,17 @@
 </head>
 <body>
     <div class="container my-4">
-        <form action="index.php" method="post">
+        <form action="" method="post">
             <!--username field-->
             <div class="form-group mb-3">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" required="required" autocomplete="off" placeholder="Enter username" name="name">
+                <input type="text" class="form-control" required="required" autocomplete="off" placeholder="Enter username" name="name" value="<?php echo $user_display ?>">
             </div>
             <!--email field-->
             
             <div class="form-group mb-3">
                 <label for="name">Email</label>
-                <input type="email" class="form-control" required="required" autocomplete="off" placeholder="Enter email address" name="email">
+                <input type="email" class="form-control" required="required" autocomplete="off" placeholder="Enter email address" name="email" value="<?php echo $email_display ?>">
             </div>
             
             
@@ -31,9 +65,9 @@
             
             <div class="form-group mb-3">
                 <label for="name">Mobile</label>
-                <input type="number" class="form-control" required="required" autocomplete="off" placeholder="Enter mobile number" minLength="11" maxLength="11" name="mobile">
+                <input type="number" class="form-control" required="required" autocomplete="off" placeholder="Enter mobile number" minLength="11" maxLength="11" name="mobile" value="<?php echo $mobile_display ?>">
             </div>
-            <button class="btn btn-dark" type="submit" name="submit">Update</button>
+            <button class="btn btn-dark" type="submit" name="update">Update</button>
 </form>
     </div>
     
