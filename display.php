@@ -34,7 +34,7 @@ $result = mysqli_query($connect,$select_query);
 $i=1;
 if ($result){
     while ($row = mysqli_fetch_assoc($result)){
-        $id = $row['id'];
+        $uid = $row['id'];
         $name = $row['name'];
         $email = $row['email'];
         $mobile = $row['mobile'];
@@ -44,8 +44,8 @@ if ($result){
                 <td>$email</td>
                 <td>$mobile</td>
                 <td>
-                    <button class='btn btn-dark my-4 txt-decoration-none' type='button'><a href='update.php?update_id=$id' class='text-light text-decoration-none'>Update</a></button>
-                    <button class='btn btn-danger my-4 txt-decoration-none' type='button'><a href='delete.php?delete_id=$id' class='text-light text-decoration-none'>Delete</a></button>
+                    <button class='btn btn-dark my-4 txt-decoration-none' type='button'><a href='update.php?update_id=$uid' class='text-light text-decoration-none'>Update</a></button>
+                    <button class='btn btn-danger my-4 txt-decoration-none' type='button'><a href='delete.php?delete_id=$uid' class='text-light text-decoration-none'>Delete</a></button>
                 </td>
 
             </tr>";
